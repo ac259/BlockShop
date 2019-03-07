@@ -1,0 +1,37 @@
+#head-navbar {
+  width: 100%;
+  white-space: nowrap;
+  display: inline-block;
+  overflow: hidden;
+}
+.nav>li {
+  display: inline-block;
+  width:initial;
+  float:left;
+  white-space: nowrap;
+}
+.nav { 
+  display: inline-block;
+}
+
+@media screen and (max-width:768px)
+{
+  .nav.navbar-nav.pull-right { float:none !important; }
+}
+
+.thumbnail img {
+	max-height: 150px;
+}
+
+.thumbnail description {
+	color: #7f7f7f;
+}
+
+.price {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.carousel .item {
+  height: 300px;
+}
