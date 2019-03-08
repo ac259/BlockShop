@@ -25,6 +25,9 @@
 
 .thumbnail description {
 	color: #7f7f7f;
+  overflow: scroll;
+      /* overflow: scroll; */
+  height: 80px; 
 }
 
 .price {
@@ -34,4 +37,15 @@
 
 .carousel .item {
   height: 300px;
+}
+
+.thumbnail { transition: all 1s ease-in-out; }
+.thumbnail:hover { transform: scale(1.1); }
+
+.container{
+  padding-top: 20px;
+}
+
+.thumbnail{
+  box-shadow: 5px 5px 5px 5px #b3b3b3;
 }
