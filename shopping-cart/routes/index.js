@@ -2,15 +2,18 @@ var express = require('express');
 var router = express.Router();
 var Cart = require('../models/cart');
 
-
+var MongoClient = require('mongodb').MongoClient;
 var Product = require('../models/product');
 var Order = require('../models/order');
-
-
+var assert = require('assert');
+var mongo = require('mongodb');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
+var urlEncodedParser = bodyParser.urlencoded({ extended: true });
 mongoose.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true } );
-
+var url = 'mongodb://localhost:27017';
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
   var successMsg = req.flash('success')[0];
   Product.find(function(err, docs) {
@@ -102,36 +105,34 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
 // selling product!
 router.get('/sell-item', isLoggedIn, function(req, res, next){
 	//var product = new Product;
-	
-	Product.find(function(err, docs) {
-  	var productChunks = [];
-  	var chunkSize = 3;
-  	for ( var i=0;i< docs.length; i += chunkSize){
-  		productChunks.push(docs.slice(i, i + chunkSize));
-  	}
-  	res.render('shop/index', { title: 'BlockShop', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+	console.log("get request");
+  	res.render('shop/sell-item');
 	});
-});
 
 
 
-router.post('sell-item/post', isLoggedIn, function(req, res, next){
+router.post('/sell-item/post', urlEncodedParser , function(req, res, next){
+	console.log(req.body);
 	req.flash('success', 'Successfully posted product!');
 	var new_product = {
 		title: req.body.title,
 		description: req.body.description,
 		price: req.body.price,
-		imagePath: req.body.imagePath
+		imagePath : req.body.imagePath
 	};
 
-	mongo.connect(mongoose, function(err, db){
-		assert.equal(null, err);
-		db.collection('products').insertOne(new_product, function(err, result){
+	MongoClient.connect(url, { useNewUrlParser: true },function (err, client) {
+  if (err) throw err;
+
+  var db = client.db('shopping');
+
+ db.collection('products').insertOne(new_product, function(err, result){
 			assert.equal(null, err);
 			console.log('New Product Inserted');
-			db.close();
+			client.close();
 		})
-	})
+}); 
+
 	res.redirect('/')
 } )
 
