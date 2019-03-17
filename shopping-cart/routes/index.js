@@ -5,6 +5,11 @@ var Cart = require('../models/cart');
 
 var Product = require('../models/product');
 var Order = require('../models/order');
+
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/shopping', {useNewUrlParser: true } );
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   var successMsg = req.flash('success')[0];
@@ -14,7 +19,7 @@ router.get('/', function(req, res, next) {
   	for ( var i=0;i< docs.length; i += chunkSize){
   		productChunks.push(docs.slice(i, i + chunkSize));
   	}
-  	res.render('shop/index', { title: 'ShopnSave', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+  	res.render('shop/index', { title: 'BlockShop', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
 	});
 });
 
@@ -73,6 +78,7 @@ router.get('/checkout', isLoggedIn, function(req, res, next){
 
 });
 
+// post request - on checkout will save it to order
 router.post('/checkout', isLoggedIn, function(req, res, next) {
     if (!req.session.cart) {
         return res.redirect('/shopping-cart');
@@ -90,10 +96,44 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
     	res.redirect('/');
 
    	});
-   	
-    
 
 });
+
+// selling product!
+router.get('/sell-item', isLoggedIn, function(req, res, next){
+	//var product = new Product;
+	
+	Product.find(function(err, docs) {
+  	var productChunks = [];
+  	var chunkSize = 3;
+  	for ( var i=0;i< docs.length; i += chunkSize){
+  		productChunks.push(docs.slice(i, i + chunkSize));
+  	}
+  	res.render('shop/index', { title: 'BlockShop', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+	});
+});
+
+
+
+router.post('sell-item/post', isLoggedIn, function(req, res, next){
+	req.flash('success', 'Successfully posted product!');
+	var new_product = {
+		title: req.body.title,
+		description: req.body.description,
+		price: req.body.price,
+		imagePath: req.body.imagePath
+	};
+
+	mongo.connect(mongoose, function(err, db){
+		assert.equal(null, err);
+		db.collection('products').insertOne(new_product, function(err, result){
+			assert.equal(null, err);
+			console.log('New Product Inserted');
+			db.close();
+		})
+	})
+	res.redirect('/')
+} )
 
 
 module.exports = router;
