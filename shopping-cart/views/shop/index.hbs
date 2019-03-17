@@ -11,6 +11,7 @@
         $('.carousel').carousel()
             });
 </script>  
+
 <div class="container">
   <div id="myCarousel" class="carousel slide" data-ride="carousel">
     <!-- Indicators -->
@@ -46,17 +47,16 @@
   </div>
 </div>
 
-
 <div class="container">
 {{# each products }}
   <div class="row">
       {{# each this }}
           <div class="col-sm-6 col-md-4">
-            <div class="thumbnail">
+            <div class="thumbnail" style="transition: all 0.3s ease-out">
               <img src="{{ this.imagePath}}" alt="..." class="img-responsive">
-              <div class="caption">
+              <div class="caption" style="height: fit-content; min-height: 200px;">
                 <h3>{{this.title}}</h3>
-                <p class ="description">{{this.description}}</p>
+                <p class ="description read-more" id="desc">{{this.description}}</p>
                 <div class="clearfix">
                   <div class="price float-left">${{this.price}}</div>
                   <a href="/add-to-cart/{{ this._id}}" class="btn btn-primary float-right" role="button">Add to Cart</a>

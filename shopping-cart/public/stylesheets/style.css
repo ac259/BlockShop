@@ -274,3 +274,21 @@ footer {
     font-size: 1.3em
   }
 }
+
+
+
+.read-more{
+  max-height: 2.4em;
+  overflow: hidden;
+  transition: all 1s ease-in-out;
+}
+
+.read-more:hover{
+  overflow: visible;
+  height: auto;
+  display: inline-block;
+  text-overflow: ellipsis;
+}
+
+.caption { transition: all 1s ease-in-out; }
+.caption:hover { transform: scale(1.0); }

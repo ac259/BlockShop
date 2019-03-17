@@ -102,16 +102,21 @@ router.post('/checkout', isLoggedIn, function(req, res, next) {
 // selling product!
 router.get('/sell-item', isLoggedIn, function(req, res, next){
 	//var product = new Product;
-	
-	Product.find(function(err, docs) {
-  	var productChunks = [];
-  	var chunkSize = 3;
-  	for ( var i=0;i< docs.length; i += chunkSize){
-  		productChunks.push(docs.slice(i, i + chunkSize));
-  	}
-  	res.render('shop/index', { title: 'BlockShop', products: productChunks, successMsg: successMsg, noMessages: !successMsg});
+	var resultArray = [];
+	mongo.connect(mongoose, function(err, db){
+		assert.equal(null, err);
+		var cursor = db.collection('products').find();
+		cursor.forEach(function(doc, err){
+			assert.equal(null, err);
+			resultArray.push(doc);
+		}, function() {
+			db.close();
+		});
 	});
-});
+
+  	res.render('shop/sell-item');
+	});
+
 
 
 
@@ -130,10 +135,10 @@ router.post('sell-item/post', isLoggedIn, function(req, res, next){
 			assert.equal(null, err);
 			console.log('New Product Inserted');
 			db.close();
-		})
-	})
+		});
+	});
 	res.redirect('/')
-} )
+} );
 
 
 module.exports = router;

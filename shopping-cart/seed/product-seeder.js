@@ -28,7 +28,7 @@ var products = [
 	new Product({
 	imagePath: 'https://images-na.ssl-images-amazon.com/images/I/71g93glCBUL._SL1500_.jpg',
 	title: 'Sony Noise Cancelling Headphones WH1000XM3',
-	description: 'Wireless Bluetooth Over the Ear Headphones with Mic and Alexa voice control - Industry Leading Active Noise Cancellation - Black',
+	description: 'Wireless Bluetooth Over the Ear Headphones with Mic and Alexa voice control - Industry Leading Active Noise Cancellation - Black ',
 	price: 348
 	}),
 
@@ -36,6 +36,13 @@ var products = [
 	imagePath: 'https://m.media-amazon.com/images/I/A13usaonutL._CLa%7C2140,2000%7C51djlOws4OL.png%7C0,0,2140,2000+0.0,0.0,2140.0,2000.0._UX679_.png',
 	title: 'Blockchain T-Shirt',
 	description: 'blockchain t-shirt for crypto fans',
+	price: 15
+	}),
+
+	new Product({
+	imagePath: 'https://m.media-amazon.com/images/I/A13usaonutL._CLa%7C2140,2000%7C51djlOws4OL.png%7C0,0,2140,2000+0.0,0.0,2140.0,2000.0._UX679_.png',
+	title: 'Blockchain',
+	description: 'blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fans blockchain t-shirt for crypto fantasy',
 	price: 15
 	}),
 
